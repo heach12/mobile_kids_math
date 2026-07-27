@@ -9,6 +9,27 @@
     android:padding="24dp"
     android:background="#E3F2FD">
 
+    <ProgressBar
+        android:id="@+id/streak"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:max="5"
+        android:progress="0"
+        android:progressTint="#FF9800"
+        android:backgroundTint="#FFFFFF"
+        android:layout_marginBottom="30dp" />
+
+    <TextView
+        android:id="@+id/tvCombo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#FF5722"
+        android:layout_marginBottom="16dp" />
+
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"

@@ -3,7 +3,10 @@ package my.edu.utar.numbers;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +24,9 @@ public class GameActivity extends AppCompatActivity {
     private Button btnOption1, btnOption2, btnOption3;
     private String currentMode;
     private int correctAnswer;
-    private Toast currentToast;
+    private int currentStreak = 0;
+    private ProgressBar streak;
+    private TextView tvCombo;
     private Random random = new Random();
 
     @Override
@@ -29,6 +34,7 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_game);
+        streak = findViewById(R.id.streak);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.game), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -37,6 +43,7 @@ public class GameActivity extends AppCompatActivity {
         });
         tvTitle = findViewById(R.id.tvTitle);
         tvQuestion = findViewById(R.id.tvQuestion);
+        tvCombo = findViewById(R.id.tvCombo);
         btnOption1 = findViewById(R.id.btnOption1);
         btnOption2 = findViewById(R.id.btnOption2);
         btnOption3 = findViewById(R.id.btnOption3);
@@ -165,7 +172,7 @@ public class GameActivity extends AppCompatActivity {
         }
 
         int missingIndex = random.nextInt(4);
-        correctAnswer = sequence[missingIndex]; // 被挖空的那个就是真正的答案
+        correctAnswer = sequence[missingIndex];
 
         StringBuilder questionText = new StringBuilder();
         for (int i = 0; i < 4; i++) {
@@ -191,23 +198,68 @@ public class GameActivity extends AppCompatActivity {
 
         shuffleAndSetOptions(correctAnswer, wrong1, wrong2);
     }
+
     private void checkAnswer(String selectedText) {
         int selectedNumber = Integer.parseInt(selectedText);
 
         if (selectedNumber == correctAnswer) {
-            showToast("Correct! 🎉");
+            currentStreak++;
+
+            // max = 5
+            int targetProgress = Math.min(currentStreak, 5);
+            // more fluent
+            ObjectAnimator.ofInt(streak, "progress", streak.getProgress(), targetProgress)
+                    .setDuration(400).start();
+
+            String barColor = "#2196F3";
+            switch (targetProgress) {
+                case 1: barColor = "#2196F3"; break;
+                case 2: barColor = "#4CAF50"; break;
+                case 3: barColor = "#FFC107"; break;
+                case 4: barColor = "#FF9800"; break;
+                case 5: barColor = "#F44336"; break;
+            }
+            streak.setProgressTintList(android.content.res.ColorStateList.valueOf(
+                    android.graphics.Color.parseColor(barColor)
+            ));
+
+            if (currentStreak >= 5) {
+                tvCombo.setText("UNSTOPPABLE! 👑 " + currentStreak + " COMBO!");
+                playBounceAnimation(tvCombo);
+                playBounceAnimation(tvTitle);
+            } else if (currentStreak >= 3) {
+                tvCombo.setText("ON FIRE! 🔥 " + currentStreak + " Combo!");
+                playBounceAnimation(tvCombo);
+            } else if (currentStreak == 2) {
+                tvCombo.setText("Awesome! 🌟 2 Combo!");
+            } else {
+                tvCombo.setText("Correct! 🎉");
+            }
+
+            tvCombo.setTextColor(android.graphics.Color.parseColor("#2E7D32"));
+
             generateNextQuestion();
+
         } else {
-            showToast("Oops! Try again. 😢");
+            if (currentStreak > 2) {
+                tvCombo.setText("Oh no! Combo broken. 💔");
+            } else {
+                tvCombo.setText("Oops! Try again. 😢");
+            }
+
+            tvCombo.setTextColor(android.graphics.Color.parseColor("#C62828"));
+
+            currentStreak = 0;
+
+            ObjectAnimator.ofInt(streak, "progress", streak.getProgress(), 0)
+                    .setDuration(300).start();
+
+            streak.setProgressTintList(android.content.res.ColorStateList.valueOf(
+                    android.graphics.Color.parseColor("#BDBDBD")
+            ));
+
+            playShakeAnimation(tvQuestion);
         }
-    }
-    // ensure notification is latest according to current page status
-    private void showToast(String message) {
-        if (currentToast != null) {
-            currentToast.cancel(); // overlap previous notification if new appearing
-        }
-        currentToast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
-        currentToast.show();
     }
     private void shuffleAndSetOptions(int correct, int w1, int w2) {
         ArrayList<Integer> options = new ArrayList<>();
@@ -220,5 +272,20 @@ public class GameActivity extends AppCompatActivity {
         btnOption1.setText(String.valueOf(options.get(0)));
         btnOption2.setText(String.valueOf(options.get(1)));
         btnOption3.setText(String.valueOf(options.get(2)));
+    }
+    private void playBounceAnimation(View view) {
+        // effect that zoom and bounce back to ori (when correct)
+        PropertyValuesHolder scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 1f, 1.5f, 1f);
+        PropertyValuesHolder scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1f, 1.5f, 1f);
+        ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(view, scaleX, scaleY);
+        animator.setDuration(400);
+        animator.start();
+    }
+    // effect, swing when wrong answer
+    private void playShakeAnimation(View view) {
+        //control coordinate X,mimic the shaking head action
+        ObjectAnimator animator = ObjectAnimator.ofFloat(view, "translationX", 0f, 20f, -20f, 20f, -20f, 10f, -10f, 0f);
+        animator.setDuration(300);
+        animator.start();
     }
 }
