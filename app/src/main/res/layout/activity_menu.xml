@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/menu"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="24dp"
+    android:background="#FFF9C4">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose A Topic"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="#333333"
+        android:layout_marginBottom="40dp" />
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:alignmentMode="alignMargins"
+        android:columnCount="2"
+        android:rowCount="2"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btnCount"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="12dp"
+            android:text="Count\nObjects"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:backgroundTint="#FF6B6B"
+            android:gravity="center" />
+
+        <Button
+            android:id="@+id/btnPlaceValue"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="12dp"
+            android:text="Place\nValue"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:backgroundTint="#4CAF50"
+            android:gravity="center" />
+
+        <Button
+            android:id="@+id/btnWords"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="12dp"
+            android:text="Number\nWords"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:backgroundTint="#2196F3"
+            android:gravity="center" />
+
+        <Button
+            android:id="@+id/btnSequence"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="12dp"
+            android:text="Number\nSequence"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:backgroundTint="#9C27B0"
+            android:gravity="center" />
+
+    </GridLayout>
+
+</LinearLayout>
