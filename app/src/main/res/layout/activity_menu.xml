@@ -1,73 +1,192 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/menu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@drawable/bg_gradient_soft"
     android:gravity="center"
-    android:padding="24dp"
-    android:background="#FFF9C4">
+    android:orientation="vertical"
+    android:padding="28dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/fredoka_bold"
         android:text="Choose A Topic"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:textColor="#333333"
-        android:layout_marginBottom="40dp" />
+        android:textColor="@color/text_primary"
+        android:textSize="32sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="36dp"
+        android:text="Pick a game to start learning!"
+        android:textColor="@color/text_secondary"
+        android:textSize="16sp" />
 
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:alignmentMode="alignMargins"
         android:columnCount="2"
+        android:gravity="center"
         android:rowCount="2"
-        android:gravity="center">
+        android:useDefaultMargins="false">
 
-        <Button
+        <!-- Card 1: Count Objects -->
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/btnCount"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_margin="12dp"
-            android:text="Count\nObjects"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:backgroundTint="#FF6B6B"
-            android:gravity="center" />
+            android:layout_width="152dp"
+            android:layout_height="152dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="@color/topic_count_bg"
+            app:cardCornerRadius="32dp"
+            app:cardElevation="8dp"
+            app:strokeWidth="0dp">
 
-        <Button
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🍎"
+                    android:textSize="48sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/fredoka_bold"
+                    android:text="Count Objects"
+                    android:textColor="@color/topic_count_accent"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Card 2: Place Value -->
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/btnPlaceValue"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_margin="12dp"
-            android:text="Place\nValue"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:backgroundTint="#4CAF50"
-            android:gravity="center" />
+            android:layout_width="152dp"
+            android:layout_height="152dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="@color/topic_place_bg"
+            app:cardCornerRadius="32dp"
+            app:cardElevation="8dp"
+            app:strokeWidth="0dp">
 
-        <Button
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🔢"
+                    android:textSize="48sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/fredoka_bold"
+                    android:text="Place Value"
+                    android:textColor="@color/topic_place_accent"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Card 3: Number Words -->
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/btnWords"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_margin="12dp"
-            android:text="Number\nWords"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:backgroundTint="#2196F3"
-            android:gravity="center" />
+            android:layout_width="152dp"
+            android:layout_height="152dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="@color/topic_words_bg"
+            app:cardCornerRadius="32dp"
+            app:cardElevation="8dp"
+            app:strokeWidth="0dp">
 
-        <Button
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🔤"
+                    android:textSize="48sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/fredoka_bold"
+                    android:text="Number Words"
+                    android:textColor="@color/topic_words_accent"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Card 4: Number Sequence -->
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/btnSequence"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_margin="12dp"
-            android:text="Number\nSequence"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:backgroundTint="#9C27B0"
-            android:gravity="center" />
+            android:layout_width="152dp"
+            android:layout_height="152dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="@color/topic_sequence_bg"
+            app:cardCornerRadius="32dp"
+            app:cardElevation="8dp"
+            app:strokeWidth="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🔀"
+                    android:textSize="48sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/fredoka_bold"
+                    android:gravity="center"
+                    android:text="Number\nSequence"
+                    android:textColor="@color/topic_sequence_accent"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
     </GridLayout>
 

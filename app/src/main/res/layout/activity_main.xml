@@ -5,39 +5,35 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="#CDEBFF">
+    android:background="@color/primary">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <ImageView
-            android:id="@+id/abacus"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginEnd="16dp"
-            android:src="@drawable/drmath" />
-
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/abacus"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/drmath"
+        android:layout_marginBottom="24dp" />
 
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Dr.Math"
-        android:textSize="32sp"
+        android:textSize="36sp"
         android:textStyle="bold"
-        android:textColor="#2563EB" />
+        android:fontFamily="@font/fredoka_bold"
+        android:textColor="@color/on_primary"
+        android:layout_marginBottom="8dp" />
 
     <TextView
         android:id="@+id/slogan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="The smart way to learn math!"
-        android:textSize="20sp"
-        android:textColor="#5F6368"
-        android:fontFamily="casual" />
+        android:textSize="16sp"
+        android:textColor="@color/on_primary"
+        android:alpha="0.85"
+        android:gravity="center" />
 
 </LinearLayout>

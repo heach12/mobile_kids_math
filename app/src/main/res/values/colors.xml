@@ -1,5 +1,36 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--  Base  -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <!--  Brand palette  -->
+    <color name="primary">#6C5CE7</color>
+    <color name="primary_dark">#4834D4</color>
+    <color name="primary_light">#A29BFE</color>
+    <color name="secondary">#00CEC9</color>
+    <color name="on_primary">#FFFFFF</color>
+    <!--  Surfaces  -->
+    <color name="background_start">#FFFCF9</color>
+    <color name="background_end">#F0EAE1</color>
+    <color name="surface">#F0F0F0</color>
+    <color name="surface_variant">#F2F0FF</color>
+    <!--  Text  -->
+    <color name="text_primary">#1F2333</color>
+    <color name="text_secondary">#71717A</color>
+    <color name="text_on_dark">#FFFFFF</color>
+    <!--  Topic tile colors (soft, modern, still playful)  -->
+    <color name="topic_count_bg">#FFE8E6</color>
+    <color name="topic_count_accent">#FF6B6B</color>
+    <color name="topic_place_bg">#E1F8EE</color>
+    <color name="topic_place_accent">#00B894</color>
+    <color name="topic_words_bg">#E6F1FF</color>
+    <color name="topic_words_accent">#4A90E2</color>
+    <color name="topic_sequence_bg">#F0EBFF</color>
+    <color name="topic_sequence_accent">#8C6EFF</color>
+    <!--  Game screen  -->
+    <color name="game_bg_start">#DCF3FF</color>
+    <color name="game_bg_end">#F2FBFF</color>
+    <color name="option_orange">#FF9F43</color>
+    <color name="option_green">#00B894</color>
+    <color name="option_blue">#4A90E2</color>
+    <color name="progress_track">#FFFFFF</color>
 </resources>
