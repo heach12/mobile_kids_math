@@ -33,4 +33,5 @@
     <color name="option_green">#00B894</color>
     <color name="option_blue">#4A90E2</color>
     <color name="progress_track">#FFFFFF</color>
+    <color name="ic_launcher_background">#FFFFFF</color>
 </resources>
