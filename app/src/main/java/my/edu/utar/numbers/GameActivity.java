@@ -117,11 +117,11 @@ public class GameActivity extends AppCompatActivity {
         shuffleAndSetOptions(correctAnswer, wrong1, wrong2);
     }
 
-    // Game 2: Place Value (bound 10-99)
+    // Game 2: Place Value (bound 1-99)
     private void generatePlaceValueQuestion() {
         tvTitle.setText("What is the number?");
 
-        // Show this game's own buttons, hide the multiple-choice ones
+        // Show current game's own buttons, hide the multiple-choice ones
         btnOption1.setVisibility(View.GONE);
         btnOption2.setVisibility(View.GONE);
         btnOption3.setVisibility(View.GONE);
@@ -135,21 +135,18 @@ public class GameActivity extends AppCompatActivity {
         tvTotal.setText("Your total: " + currentTotal);
     }
 
-    //Game 3 : Words vs Numbers (bound 1-10)
+    //Game 3 : Words vs Numbers (bound 1-99)
     private void generateWordsQuestion() {
         tvTitle.setText("Which number is this?");
-
-        // 1. Generate a random number between 1 and 99
         correctAnswer = random.nextInt(99) + 1;
 
-        // 2. Turn the number into a word
         tvQuestion.setText(numberToWord(correctAnswer));
         tvQuestion.setTextSize(50);
 
         int wrong1 = -1;
         int wrong2 = -1;
 
-        // 3. The Trick Logic (50% chance to happen)
+        // 50% chance to happen
         boolean useTrick = random.nextBoolean();
         int trickNumber = -1;
 
@@ -167,32 +164,29 @@ public class GameActivity extends AppCompatActivity {
             }
         }
 
-        // 4. Generate the wrong answers
         do {
             if (useTrick) {
-                wrong1 = trickNumber; // Put the tricky 86 here!
+                wrong1 = trickNumber; // Put the tricky ans here
             } else {
                 wrong1 = random.nextInt(99) + 1; // Or just use a random number
             }
 
-            wrong2 = random.nextInt(99) + 1; // The second wrong answer is always random
+            wrong2 = random.nextInt(99) + 1; // second wrong answer is always random
 
-            // Make sure no buttons have duplicate numbers!
+            // Make sure no buttons have duplicate numbers
         } while (wrong1 == correctAnswer || wrong2 == correctAnswer || wrong1 == wrong2);
 
-        // 5. Shuffle and set the buttons
         shuffleAndSetOptions(correctAnswer, wrong1, wrong2);
     }
 
     private String numberToWord(int number) {
         if (number == 0) return "Zero";
 
-        // Arrays for the unique words
         String[] ones = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
                 "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
         String[] tens = {"", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
 
-        // If it's less than 20, just grab it from the ones array
+        // If < 20, just grab from the ones array (due to -teen)
         if (number < 20) {
             return ones[number];
         } else {
@@ -201,17 +195,17 @@ public class GameActivity extends AppCompatActivity {
             // Calculate the ones place (e.g., 45 % 10 = 5 -> Five)
             int unitDigit = number % 10;
 
-            // If it's a perfect ten (like 20, 30), don't add a dash
+            // If perfect ten (like 20, 30), no add -
             if (unitDigit == 0) {
                 return tens[tenDigit];
             } else {
-                // Combine them with a dash (e.g., Forty-five)
+                // Combine with a dash (e.g., Forty-five)
                 return tens[tenDigit] + "-" + ones[unitDigit].toLowerCase();
             }
         }
     }
 
-    //Game 4 : Sequence (Bound +5/-5)
+    //Game 4 : Sequence (Bound ±5 >>>1,2,5)
     private void generateSequenceQuestion() {
         tvTitle.setText("What is missing?");
 
@@ -264,12 +258,8 @@ public class GameActivity extends AppCompatActivity {
         int selectedNumber = Integer.parseInt(selectedText);
         TextView tvFeedbackMessage = findViewById(R.id.tvFeedbackMessage);
 
-        // 1.prevent duplicate click
-        btnOption1.setEnabled(false);
-        btnOption2.setEnabled(false);
-        btnOption3.setEnabled(false);
-        btnAdd10.setEnabled(false);
-        btnAdd1.setEnabled(false);
+        // prevent duplicate click
+        setButtonsEnabled(false);
 
         if (selectedNumber == correctAnswer) {
             currentStreak++;
@@ -336,21 +326,13 @@ public class GameActivity extends AppCompatActivity {
                             badgeLayout.setVisibility(View.GONE);
                         }
                         // close badge then proceed to next ques
-                        btnOption1.setEnabled(true);
-                        btnOption2.setEnabled(true);
-                        btnOption3.setEnabled(true);
-                        btnAdd10.setEnabled(true);
-                        btnAdd1.setEnabled(true);
+                        setButtonsEnabled(true);
                         generateNextQuestion();
                     });
                 }
             } else {
                 new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> {
-                    btnOption1.setEnabled(true);
-                    btnOption2.setEnabled(true);
-                    btnOption3.setEnabled(true);
-                    btnAdd10.setEnabled(true);
-                    btnAdd1.setEnabled(true);
+                    setButtonsEnabled(true);
                     generateNextQuestion();
                 }, 1750);
             }
@@ -360,11 +342,11 @@ public class GameActivity extends AppCompatActivity {
             boolean hasExtraLife = (currentStreak >= 5);
 
             if (hasExtraLife) {
-                // Shield logic: Give them a second chance without changing the question
+                //  Give them a second chance without changing the question
                 tvCombo.setText("Shield Activated! 🛡️ Try again!");
                 tvCombo.setTextColor(android.graphics.Color.parseColor("#FF9800")); // Orange warning color
 
-                // Consume the shield by reducing the streak to 4 instead of resetting to 0
+                // Consume the shield and reduce the streak to 4 instead of resetting to 0
                 currentStreak = 4;
                 ObjectAnimator.ofInt(streak, "progress", streak.getProgress(), currentStreak).setDuration(300).start();
 
@@ -379,11 +361,7 @@ public class GameActivity extends AppCompatActivity {
 
                 // buffer time for shield: unlock buttons but DO NOT generate next question
                 new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> {
-                    btnOption1.setEnabled(true);
-                    btnOption2.setEnabled(true);
-                    btnOption3.setEnabled(true);
-                    btnAdd10.setEnabled(true);
-                    btnAdd1.setEnabled(true);
+                    setButtonsEnabled(true);
                 }, 1750);
 
             } else {
@@ -415,13 +393,8 @@ public class GameActivity extends AppCompatActivity {
                 tvFeedbackMessage.setScaleY(0.8f);
                 tvFeedbackMessage.animate().scaleX(1f).scaleY(1f).setDuration(200).start();
 
-                // buffer time 3s (Kept your comment, but using 1750 as in your code)
                 new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> {
-                    btnOption1.setEnabled(true);
-                    btnOption2.setEnabled(true);
-                    btnOption3.setEnabled(true);
-                    btnAdd10.setEnabled(true);
-                    btnAdd1.setEnabled(true);
+                    setButtonsEnabled(true);
                     generateNextQuestion();
                 }, 1750);
             }
@@ -478,28 +451,32 @@ public class GameActivity extends AppCompatActivity {
         if (!btnAdd10.isEnabled()) {
             return;
         }
-        // 1. Add to the current total
+        // add to the current total
         currentTotal += amount;
 
-        // 2. Update the text on the screen
+        // update the text on the screen
         TextView tvTotal = findViewById(R.id.tvTotal);
         tvTotal.setText("Your total: " + currentTotal);
 
-        // 3. Check if they won or lost!
         if (currentTotal == correctAnswer) {
-            btnAdd10.setEnabled(false);
-            btnAdd1.setEnabled(false);
-            // CORRECT! They hit the exact number.
-            // We pass the correct answer to your existing check method
+            setButtonsEnabled(false);
+            // hit the exact number, pass the correct answer to existing check method
             checkAnswer(String.valueOf(correctAnswer));
 
         } else if (currentTotal > correctAnswer) {
-            btnAdd10.setEnabled(false);
-            btnAdd1.setEnabled(false);
-            // WRONG! They went over the target number.
-            // We pass a fake wrong answer (like -1) to trigger your "Oops!" logic
+            setButtonsEnabled(false);
+            // pass a fake wrong answer to trigger false logic
             checkAnswer("-1");
         }
-        // If currentTotal is LESS than the correctAnswer, we do nothing and let them keep clicking!
+        // If currentTotal < correctAnswer, we do nothing and let user keep clicking
+    }
+
+    // method to lock or unlock all game buttons at once
+    private void setButtonsEnabled(boolean isEnabled) {
+        btnOption1.setEnabled(isEnabled);
+        btnOption2.setEnabled(isEnabled);
+        btnOption3.setEnabled(isEnabled);
+        btnAdd10.setEnabled(isEnabled);
+        btnAdd1.setEnabled(isEnabled);
     }
 }
